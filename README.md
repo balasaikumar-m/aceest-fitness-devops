@@ -49,10 +49,5 @@ The workflow runs on push and pull requests. It installs dependencies, checks sy
 5. Configure a SonarQube webhook to `http://JENKINS_URL/sonarqube-webhook/` so `waitForQualityGate` can receive the Quality Gate result. Jenkins must be reachable from SonarQube.
 6. Ensure a Quality Gate exists and is assigned to the project. The pipeline fails if the gate fails.
 
-Allocate adequate VM memory for Jenkins, Docker and SonarQube; 4 GB is a minimum starting point for SonarQube alone, not the whole stack.
-
 ## GitHub Actions and local SonarQube
 GitHub-hosted runners cannot normally reach SonarQube running only on a private VM. This repository runs build/tests/Docker checks in GitHub Actions and runs SonarQube analysis plus Quality Gate in Jenkins on the VM. To run SonarQube analysis from GitHub Actions, you need a securely reachable SonarQube server and suitable GitHub secrets/network access. Do not expose Jenkins or SonarQube without proper access controls.
-
-## Submission
-Submit the public GitHub repository URL and verify successful GitHub Actions, Jenkins and SonarQube results.
