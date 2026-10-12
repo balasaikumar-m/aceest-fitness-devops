@@ -55,7 +55,7 @@ pipeline {
             // 2. Wrap it with your SonarQube system credentials config
             withSonarQubeEnv('SonarQube') { 
                 // 3. CRUCIAL: Point directly to the binary inside that installation folder
-                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.python.coverage.reportPaths=coverage.xml"
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=aceest-fitness-devops -Dproject.settings=sonar-project.properties -Dsonar.python.coverage.reportPaths=coverage.xml"
             }
         }
     }
