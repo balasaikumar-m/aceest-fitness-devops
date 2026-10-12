@@ -47,12 +47,19 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.python.coverage.reportPaths=coverage.xml'
-                }
+    steps {
+        script {
+            // 1. Fetch the absolute folder location where Jenkins downloads the tool
+            def scannerHome = tool 'SonarScanner'
+            
+            // 2. Wrap it with your SonarQube system credentials config
+            withSonarQubeEnv('SonarQube') { 
+                // 3. CRUCIAL: Point directly to the binary inside that installation folder
+                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.python.coverage.reportPaths=coverage.xml"
             }
         }
+    }
+}
         stage('SonarQube Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
